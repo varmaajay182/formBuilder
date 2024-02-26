@@ -1,6 +1,5 @@
 @extends('formBuilder::formBuilder.layout.app')
 @section('content')
-
     <div class="d-flex justify-content-around" style=" width:90%; height:90%">
         <div id="messageContainer"></div>
         <div class="components border border-dark" style="width:20%; height:100% ; background-color:#656b6c">
@@ -54,13 +53,20 @@
         </div>
         <div class="content " style="width:50%; height:100%">
             <form action="" method="post" style="width: 100%; height:100%" id="submitform">
-                @csrf
+
                 <div class="d-flex align-items-center justify-content-between"
-                    style="width:100%; height:6%; background-color:#5b5c59">
-                    <div class="d-flex " style="width: 65%">
-                        <label for="formName" style="font-size:25px; width:50%; color:white"><b>Form Name: </b></label>
-                        <input type="text" name="formName" class="form-control" id="formName"
-                            placeholder="Enter Form Name">
+                    style="width:100%; height:10%; background-color:#5b5c59">
+                    <div style="width:65%">
+                        <div class="d-flex " style="width: 100%">
+                            <label for="formName" style="font-size:25px; width:50%; color:white"><b>Form Name: </b></label>
+                            <input type="text" name="formName" class="form-control" id="formName"
+                                placeholder="Enter Form Name">
+                        </div>
+                        <div class="d-flex " style="width: 65%">
+                            <label for="url" style="font-size:25px; width:50%; color:white"><b>Form Url: </b></label>
+                            <input type="text" name="url" class="form-control" id="url"
+                                placeholder="Enter Form url to save your data">
+                        </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Save</button>
 
@@ -82,23 +88,27 @@
     <script>
         $(document).ready(function() {
             $("#submitform").on('submit', function(event) {
-                // console.log('hello')
+
                 event.preventDefault();
 
-                var fullFrom = $('#submitform').html();
                 var formDataString = $(this).serialize();
                 var formData = new URLSearchParams(formDataString);
 
-                // Getting specific values
+
                 var formName = formData.get("formName");
-             
-                // console.log(formName)
-                //    console.log(fullFrom)
+                var formUrl = formData.get("url");
+                var fullFrom = $('#submitform')
+                var formTag = '<form action="/' + formUrl + '" method="post">' +
+                    '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
+                    fullFrom.html() +
+                    '</form>';
+
+
                 $.ajax({
                     url: "{{ route('save-form') }}",
                     type: "post",
                     data: {
-                        'fullform': fullFrom,
+                        'fullform': formTag,
                         'formName': formName
                     },
                     headers: {
