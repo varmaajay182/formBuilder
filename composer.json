@@ -13,6 +13,9 @@
             "name": "codecrewingotech"
         }
     ],
-    "minimum-stability": "stable",
-    "require": {}
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        
+    }
 }
