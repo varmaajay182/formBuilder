@@ -12,6 +12,8 @@ class formbuilderserviceprovider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/views', 'formBuilder');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
+        require_once __DIR__.'/Helpers/shortcodeHelper.php';
+
         $this->publishes([
             __DIR__ . '/public' => public_path('/'),
             __DIR__ . '/public/formBuilder-asset' => public_path('/formBuilder-asset'),

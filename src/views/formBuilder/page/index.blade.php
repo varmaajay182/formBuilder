@@ -102,7 +102,7 @@
                             Id:</b></label>
                     <input type="text" name="formId" class="form-control" id="formId" placeholder="Enter Form ID"
                         style="width: 30%; margin-right: 1em;">
-
+                    <button type="button" class="btn btn-secondary" id="backToListing">formListing</button>
                     <button class="btn btn-primary" type="submit">Save</button>
                 </div>
 
@@ -123,6 +123,10 @@
 
     <script>
         $(document).ready(function() {
+            $('#backToListing').on('click', function() {
+                
+                window.location.href = '{{ route('formlisting') }}';
+            });
             $("#submitform").on('submit', function(event) {
 
                 event.preventDefault();
@@ -145,7 +149,7 @@
 
                 if (formName == 'register' || formName == 'login' || formName == 'Register' || formName ==
                     'Login') {
-// console.log('if')
+                    // console.log('if')
                     var formContent = $('#form-content').clone().children().removeAttr("style").end()
                         .html();
                     var modifiedHTML = formContent;
@@ -195,17 +199,18 @@
                                 // Handle success
                                 var messageContainer = $('#messageContainer');
                                 if (response.success) {
-                                    messageContainer.html(
-                                        '<div class="alert alert-success">' +
-                                        response.success + '</div>');
+
+                                    window.location.href =
+                                        '{{ route('formlisting') }}?success=' +
+                                        encodeURIComponent(response.success);
                                 } else {
                                     messageContainer.html(
                                         '<div class="alert alert-danger">' +
                                         response.error + '</div>');
+                                    setTimeout(function() {
+                                        messageContainer.html('');
+                                    }, 3000);
                                 }
-                                setTimeout(function() {
-                                    messageContainer.html('');
-                                }, 3000);
                             },
                             error: function(response) {
                                 // Handle error

@@ -3,6 +3,7 @@
 namespace Codecrewinfotech\FormBuilder\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Codecrewinfotech\FormBuilder\Helpers\shortcodeHelper;
 use Codecrewinfotech\FormBuilder\Models\formBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -14,6 +15,14 @@ class formBuilderController extends Controller
     public function index()
     {
         return view('formBuilder::formBuilder.page.index');
+    }
+
+    public function formListing(Request $request)
+    {
+        $successMessage = $request->query('success');
+
+        $generatedforms = formBuilder::get();
+        return view('formBuilder::formBuilder.formListing', ['forms' => $generatedforms,'successMessage'=>$successMessage]);
     }
 
     public function saveForm(Request $request)
@@ -33,17 +42,18 @@ class formBuilderController extends Controller
             // Log::info('Your message or log data here');
 
             $slug = Str::slug($request['formName']);
+            $shorCode = shortcodeHelper::generateRandomShortcode();
             $formSave = formBuilder::create([
                 'formName' => $request['formName'],
                 'key' => $slug,
                 'url' => $request['formUrl'],
                 'formId' => $request['formId'],
-               
-                'elements' =>  html_entity_decode($request['formHtml'])
+                'short_code' => $shorCode,
+                'elements' => html_entity_decode($request['formHtml']),
             ]);
-
+            // .();
             return response()->json([
-                'success' => 'successfully generate form',
+                'success' => 'successfully generate form with shortCode ' . $shorCode,
             ]);
 
         } catch (\Exception $e) {
@@ -60,13 +70,12 @@ class formBuilderController extends Controller
         $formUrl = $request->input('formUrl');
         $formId = $request->input('formId');
         $formContent = $request->input('formContent');
-    
-        if($formName == 'register' || $formName == 'login' || $formName == 'Register' || $formName == 'Login'){
-            $formView = view('formBuilder::formDesign.registerlogin', compact('formName', 'formUrl', 'formId','formContent'));
-        }else{
-            $formView = view('formBuilder::formDesign.formDesign', compact('formName', 'formUrl', 'formId','formContent'));
+
+        if ($formName == 'register' || $formName == 'login' || $formName == 'Register' || $formName == 'Login') {
+            $formView = view('formBuilder::formDesign.registerlogin', compact('formName', 'formUrl', 'formId', 'formContent'));
+        } else {
+            $formView = view('formBuilder::formDesign.formDesign', compact('formName', 'formUrl', 'formId', 'formContent'));
         }
-    
 
         return response()->json(['view' => $formView->render()]);
     }

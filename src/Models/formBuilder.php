@@ -13,6 +13,7 @@ class formBuilder extends Model
         'key',
         'formId',
         'url',
+        'short_code',
         'elements',
     ];
 }

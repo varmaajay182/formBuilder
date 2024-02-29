@@ -6,7 +6,10 @@
     "autoload": {
         "psr-4": {
             "Codecrewinfotech\\FormBuilder\\": "src/"
-        }
+        },
+        "files": [
+            "src/Helpers/shortcodeHelper.php"
+        ]
     },
     "authors": [
         {
