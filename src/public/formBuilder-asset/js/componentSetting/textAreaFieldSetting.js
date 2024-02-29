@@ -1,5 +1,5 @@
 var label;
-var currentPlaceholderInput;
+var currenttextarea;
 var currentIdName;
 
 function textAreaSetting() {
@@ -10,11 +10,11 @@ function textAreaSetting() {
     outerBox.append(labelInnerBox);
 
     var placeholderInnerBox = createInnerBox();
-    appendPlaceHolder(placeholderInnerBox);
+    appendTextPlaceHolder(placeholderInnerBox);
     outerBox.append(placeholderInnerBox);
 
     var textAreaFieldIdInnerBox = createInnerBox();
-    appendIdName(textAreaFieldIdInnerBox)
+    appendTextIdName(textAreaFieldIdInnerBox)
     outerBox.append(textAreaFieldIdInnerBox)
 
     $('#element-setting').empty();
@@ -42,57 +42,58 @@ function appendLabelName(innerBox) {
         'marginBottom': '5px'
     }).html('<b>Label:</b>');
 
-    var labelInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the label')
+    var labelInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the label').val(label.text())
     labelInput.on('input', function () {
         label.html("<b>" + $(this).val() + "</b>");
     });
     return innerBox.append(LabelName).append(labelInput);
 }
 
-function appendPlaceHolder(innerBox) {
+function appendTextPlaceHolder(innerBox) {
     var placeHolderLabel = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px'
     }).html('<b>Placeholder:</b>');
 
-    var placeholderInput = $('<input>').addClass('form-control').attr('placeholder', 'Change placeholder content')
+    var placeholderInput = $('<input>').addClass('form-control').attr('placeholder', 'Change placeholder content').val(currenttextarea.attr('placeholder'));
 
     placeholderInput.on('input', function () {
         var newPlaceholder = $(this).val();
-        // console.log(currentPlaceholderInput.attr('placeholder'))
-        updatePlaceholder(currentPlaceholderInput, newPlaceholder);
+        currenttextarea.attr('placeholder', newPlaceholder)
+        
     });
 
     return innerBox.append(placeHolderLabel).append(placeholderInput);
 }
 
-function appendIdName(innerBox){
+function appendTextIdName(innerBox){
     var IdNameLabel = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px'
     }).html('<b>Id Name:</b>');
 
-    var IdNameInput  = $('<input>').addClass('form-control').attr('placeholder', 'Change the id')
+    var IdNameInput  = $('<input>').addClass('form-control').attr('placeholder', 'Change the id').val(currenttextarea.attr('id'));
 
     IdNameInput.on('input', function () {
         var newIdName = $(this).val();
-        updateIdName(currentIdName,newIdName)
+        currenttextarea.attr('id', newIdName)
+        // updateTeaxtIdName(currentIdName,newIdName)
     });
 
     return innerBox.append(IdNameLabel).append(IdNameInput);
 }
 
-function updatePlaceholder(currentPlaceholderInput, newPlaceholder) {
-     currentPlaceholderInput.attr('placeholder', newPlaceholder);
+function updateTextPlaceholder(currenttextarea, newPlaceholder) {
+     currenttextarea.attr('placeholder', newPlaceholder);
 }
 
-function updateIdName(currentIdName,newIdName){
+function updateTeaxtIdName(currentIdName,newIdName){
     currentIdName.attr('id',newIdName)
 }
 
 $('#form-content').on('click', '.textAreaElement', function () {
     label = $(this).find('label');
-    // console.log(label,'textarea')
-    currentPlaceholderInput = $(this).find('textarea');
+    currenttextarea = $(this).find('textarea');
     currentIdName= $(this).find('textarea');
+    textAreaSetting();
 });

@@ -1,6 +1,6 @@
 var buttonLabelName;
 
-$('#form-content').on('click', ' .custom-container', function () {
+$('#form-content').on('click', ' .button-container', function () {
 
     buttonLabelName = $(this).find('button:first');
     // console.log(buttonLabelName)
@@ -11,9 +11,10 @@ $('#form-content').on('click', ' .custom-container', function () {
 
 
 function buttonSetting(){
-    var outerBox = createOuterBox();
+    // console.log('button')
+    var outerBox = createButtonOuterBox();
 
-    var buttonlabelInnerbox = createInnerBox();
+    var buttonlabelInnerbox = createButtonInnerBox();
     appendLabelNameForButton(buttonlabelInnerbox);
     outerBox.append(buttonlabelInnerbox);
 
@@ -23,14 +24,14 @@ function buttonSetting(){
 
 }
 
-function createOuterBox() {
+function createButtonOuterBox() {
     return $('<div>').css({
         "width": "95%",
         "height": "94%",
     });
 }
 
-function createInnerBox() {
+function createButtonInnerBox() {
     return $('<div>').css({
         "width": "100%",
         "height": "15%",
@@ -40,17 +41,17 @@ function createInnerBox() {
     });
 }
 
-function appendLabelNameForButton(innerBox){
+function appendLabelNameForButton(buttoninnerBox){
     var LabelName = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px',
         "display": "block"
     }).html('<b>Button Label Name:</b>');
  
-    var labelInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the label').val(buttonLabelName.text())
+    var labelInput = $('<input>').addClass('form-control').attr('placeholder', 'Change thee label').val(buttonLabelName.text())
     labelInput.on('input', function () {
         buttonLabelName.html("<b>" + $(this).val() + "</b>");
     });
 
-    innerBox.append(LabelName).append(labelInput);
+    buttoninnerBox.append(LabelName).append(labelInput);
 }

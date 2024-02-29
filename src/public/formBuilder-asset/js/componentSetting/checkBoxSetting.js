@@ -85,6 +85,8 @@ function appendCheckboxOption(checkboxOptionInnerbox) {
         "justifyContent": "space-between"
     })
 
+    var chackboxMessage = $('<div>').attr('id', 'checkboxMessage');
+
     var table = $("<table>").addClass("table table-bordered");
     var thead = $("<thead>").appendTo(table);
     var tbody = $("<tbody>").appendTo(table);
@@ -99,17 +101,17 @@ function appendCheckboxOption(checkboxOptionInnerbox) {
         appendCheckboxOptionRow(tbody, i);
     }
     var buttonDiv = $('<div>').css({
-        "height":"10%",
-        "width":"20%",
-        "display":"flex",
-        "justifyContent":"space-between"
+        "height": "10%",
+        "width": "20%",
+        "display": "flex",
+        "justifyContent": "space-between"
     })
 
     var addButton = $("<button>")
         .addClass("btn btn-primary")
         .css({
             "height": "100%",
-            
+
         })
         .html('<i class="fa-solid fa-plus"></i>')
         .on('click', function () {
@@ -125,11 +127,11 @@ function appendCheckboxOption(checkboxOptionInnerbox) {
         .on('click', function () {
             deleteCheckboxOption();
         });
-        buttonDiv.append(addButton,deleteButton)
+    buttonDiv.append(addButton, deleteButton)
 
-    checkboxOptionSettingDiv.append(checkboxOptionlabel,buttonDiv)
+    checkboxOptionSettingDiv.append(checkboxOptionlabel, buttonDiv)
 
-    checkboxOptionInnerbox.append(checkboxOptionSettingDiv, table);
+    checkboxOptionInnerbox.append(checkboxOptionSettingDiv,chackboxMessage, table);
 }
 
 function appendCheckboxOptionRow(tbody, i) {
@@ -171,33 +173,55 @@ function appendCheckboxOptionRow(tbody, i) {
 }
 
 function addNewCheckboxOption() {
-    var checkboxinnerDiv = $("<div>").addClass("custom-checkbox");
 
-    var checkboxOptionLabelNew = $("<input>")
-        .attr({
-            type: "checkbox",
-            name: "checkboxGroup" + newCheckBoxOptionCounter,
-            id: "checkBoxId" + newCheckBoxOptionCounter,
-            value: "checkBox" + newCheckBoxOptionCounter,
-        })
-        .addClass("custom-checkbox-input");
+    if (checkboxlabelOption.length < 7) {
+        var checkboxinnerDiv = $("<div>").addClass("custom-checkbox");
 
-    var newCheckboxLabel = $("<label>")
-        .css({
-            "fontSize": "16px",
-            "marginLeft": "5px"
-        })
-        .attr('for', "checkBoxId" + newCheckBoxOptionCounter)
-        .html("checkBox" + newCheckBoxOptionCounter,);
+        var checkboxOptionLabelNew = $("<input>")
+            .attr({
+                type: "checkbox",
+                name: "checkboxGroup" + newCheckBoxOptionCounter,
+                id: "checkBoxId" + newCheckBoxOptionCounter,
+                value: "checkBox" + newCheckBoxOptionCounter,
+            })
+            .addClass("custom-checkbox-input");
 
-    checkboxinnerDiv.append(checkboxOptionLabelNew).append(newCheckboxLabel);
+        var newCheckboxLabel = $("<label>")
+            .css({
+                "fontSize": "16px",
+                "marginLeft": "5px"
+            })
+            .attr('for', "checkBoxId" + newCheckBoxOptionCounter)
+            .html("checkBox" + newCheckBoxOptionCounter,);
 
-    $('#'+Id).append(checkboxinnerDiv);
+        checkboxinnerDiv.append(checkboxOptionLabelNew).append(newCheckboxLabel);
 
-    newCheckBoxOptionCounter++
+        $('#' + Id).append(checkboxinnerDiv);
+
+        newCheckBoxOptionCounter++
+
+        checkboxlabelOption = $(`#${Id}`).find('label');
+        checkboxOptionInput = $(`#${Id}`).find('input');
+
+        checkBoxFieldSetting();
+    } else {
+        var messageContainer = $('#checkboxMessage');
+        messageContainer.html(
+            '<div class="alert alert-danger">Not Add More Option</div>');
+        setTimeout(function () {
+            messageContainer.html('');
+        }, 3000);
+    }
+
+
 }
 
-function deleteCheckboxOption(){
-    var id = $('#'+Id).find('.custom-checkbox:last')
+function deleteCheckboxOption() {
+    var id = $('#' + Id).find('.custom-checkbox:last')
     id.remove()
+
+    checkboxlabelOption = $(`#${Id}`).find('label');
+    checkboxOptionInput = $(`#${Id}`).find('input');
+
+    checkBoxFieldSetting();
 }

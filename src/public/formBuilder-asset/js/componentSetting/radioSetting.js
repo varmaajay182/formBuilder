@@ -20,7 +20,7 @@ function radioSetting() {
 
 
     var nameAttributeInnerBox = createInnerBox();
-    appendNameAttribute(nameAttributeInnerBox);
+    appenRadiodNameAttribute(nameAttributeInnerBox);
     outerBox.append(nameAttributeInnerBox);
 
 
@@ -78,7 +78,7 @@ function appendLabelNameForRadio(innerBox) {
     innerBox.append(LabelName).append(labelInput);
 }
 
-function appendNameAttribute(innerBox) {
+function appenRadiodNameAttribute(innerBox) {
     var radioNameAttributeLabel = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px',
@@ -110,7 +110,9 @@ function appendRadioOption(innerBox) {
         'marginBottom': '5px',
         "display": "flex",
         "justifyContent": "space-between"
-    })
+    });
+
+    var messageShowDiv = $('<div>').attr('id', 'message');
 
     var table = $("<table>").addClass("table table-bordered");
     var thead = $("<thead>").appendTo(table);
@@ -126,37 +128,37 @@ function appendRadioOption(innerBox) {
     }
 
     var buttonDiv = $('<div>').css({
-        "height":"10%",
-        "width":"20%",
-        "display":"flex",
-        "justifyContent":"space-between"
+        "height": "10%",
+        "width": "20%",
+        "display": "flex",
+        "justifyContent": "space-between"
     })
-   
+
     var addButton = $("<button>")
-    .addClass("btn btn-primary")
-    .css({
-        "height": "10%"
-    })
-    .html('<i class="fa-solid fa-plus"></i>')
-    .on('click', function () {
-        addNewOption();
-    });
+        .addClass("btn btn-primary")
+        .css({
+            "height": "10%"
+        })
+        .html('<i class="fa-solid fa-plus"></i>')
+        .on('click', function () {
+            addNewOption();
+        });
 
     var deleteButton = $("<button>")
-    .addClass("btn btn-danger")
-    .css({
-        "height": "10%"
-    })
-    .html('<i class="fa-solid fa-trash"></i>')
-    .on('click', function () {
-        deleteOption();
-    });
+        .addClass("btn btn-danger")
+        .css({
+            "height": "10%"
+        })
+        .html('<i class="fa-solid fa-trash"></i>')
+        .on('click', function () {
+            deleteOption();
+        });
 
-    buttonDiv.append(addButton,deleteButton)
+    buttonDiv.append(addButton, deleteButton)
 
-    optionSettingDiv.append(OptionLabel,buttonDiv)
+    optionSettingDiv.append(OptionLabel, buttonDiv)
 
-    innerBox.append(optionSettingDiv, table);
+    innerBox.append(optionSettingDiv, messageShowDiv, table);
 }
 
 function appendOptionRow(tbody, i) {
@@ -192,46 +194,60 @@ function appendOptionRow(tbody, i) {
 
 
 function addNewOption(tbody) {
-   
-    var innerDivNew = $("<div>").addClass("inner-div d-flex align-items-center radiogrouplabel");
-    var radio1 = $("<input>").attr({
-        "type": "radio",
-        "name": "radioGroup",
-        "id": "radio"+newRadioCounter+"Option" + newOption,
-        "value": " Option"+newOption
-    }).css("margin-right", "5px");
 
-    var labels = $("<label>").attr("for", "radio" + newOption).html(" Option " + newOption);
+    if (labelOption.length < 7) {
+        var innerDivNew = $("<div>").addClass("inner-div d-flex align-items-center radiogrouplabel");
+        var radio1 = $("<input>").attr({
+            "type": "radio",
+            "name": "radioGroup",
+            "id": "radio" + newRadioCounter + "Option" + newOption,
+            "value": " Option" + newOption
+        }).css("margin-right", "5px");
 
-    innerDivNew.append(radio1).append(labels);
-    $('#' + Id).append(innerDivNew);
-    
-    
-    newOption++
-    newRadioCounter++
-  
+        var labels = $("<label>").attr("for", "radio" + newOption).html(" Option " + newOption);
+
+        innerDivNew.append(radio1).append(labels);
+        $('#' + Id).append(innerDivNew);
+
+
+        newOption++
+        newRadioCounter++
+
+        labelOption = $(`#${Id}`).find('label');
+        optionInput = $(`#${Id}`).find('input');
+
+        radioSetting()
+    } else {
+
+        var messageContainer = $('#message');
+        messageContainer.html(
+            '<div class="alert alert-danger">Not Add More Option</div>');
+        setTimeout(function () {
+            messageContainer.html('');
+        }, 3000);
+    }
+
+
 }
 
-function deleteOption(){
-     var id = $('#'+Id).find('.radiogrouplabel:last')
-     id.remove();
-}
+function deleteOption() {
+    var id = $('#' + Id).find('.radiogrouplabel:last')
+    id.remove();
 
-function updateIdName(currentIdName, newIdName) {
-    currentIdName.attr('id', newIdName);
+    labelOption = $(`#${Id}`).find('label');
+    optionInput = $(`#${Id}`).find('input');
+    radioSetting()
 }
 
 function updateNameAttribute(currentRadioNameAttribute, nameAttribute) {
     currentRadioNameAttribute.attr('name', nameAttribute)
 }
-$('#form-content').on('click', ' .outer-div', function () {
-     Id = $(this).find('.radioGroup').attr('id');
-    // console.log("ID:", id);
-    // console.log("ID:", id);
-    labelGroupName = $(this).find('.labelGroupName label');
-    // console.log(labelGroupName,'radiobutton')
-    currentRadioNameAttribute = $(this).find('input[type="radio"]');
 
+$('#form-content').on('click', ' .outer-div', function () {
+    Id = $(this).find('.radioGroup').attr('id');
+
+    labelGroupName = $(this).find('.labelGroupName label');
+    currentRadioNameAttribute = $(this).find('input[type="radio"]');
     labelOption = $(this).find('.radioGroup label');
     optionInput = $(this).find('.radioGroup input');
 

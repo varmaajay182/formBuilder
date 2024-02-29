@@ -409,14 +409,14 @@ function createButton(button) {
             .html("Button " + buttonCounter);
 
         var containerDiv = $("<div>")
-            .addClass("custom-container inputbox")
+            .addClass("button-container inputbox")
             .css({
-                "width":"100%",
+                "width": "100%",
                 "display": "flex",
                 "padding": "10px",
                 "marginBottom": "10px",
                 "marginTop": "10px",
-                'height':'8%',
+                'height': '8%',
                 // "justifyContent":"center"
             })
             .append(buttonFeild)
@@ -458,10 +458,10 @@ function removeBackgroundColor(getDiv) {
 }
 
 function applyHover(getDivForHover) {
- 
+
     getDivForHover.hover(
         function () {
-          
+
             $('.cancel', this).css({
                 'display': 'block'
             });
@@ -477,8 +477,10 @@ function applyHover(getDivForHover) {
 
 function deleteElement(getDivForDelete) {
 
+  
     Swal.fire({
         title: 'Are you sure?',
+        // width:'100px',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -487,8 +489,10 @@ function deleteElement(getDivForDelete) {
         confirmButtonText: 'Yes, delete it!',
         cancelButtonText: 'Cancel'
     }).then((result) => {
-        if (result.isConfirmed) {
-            getDivForDelete.remove()
+        if (result.isConfirmed) {   
+            // console.log(getDivForDelete)
+            getDivForDelete.remove();
+            var elementsSetting = $('#element-setting').empty();
             Swal.fire(
                 'Deleted!',
                 'Your item has been deleted.',

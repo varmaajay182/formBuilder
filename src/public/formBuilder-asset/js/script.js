@@ -4,6 +4,8 @@ $(document).ready(function () {
     $.getScript("formBuilder-asset/js/createElement.js", function () {
         $('.tags').draggable({
             helper: 'clone',
+            cursor: 'move',
+         
             drag: function (event, ui) {
                 ui.helper.width(100).height(50);
             }
@@ -41,11 +43,7 @@ $(document).ready(function () {
                     // console.log('hello')
                     var element = createButton(button);
                 }
-                
-                // button.on('click',function(){
 
-                //     deleteElement(button)
-                // })
 
             }
         });

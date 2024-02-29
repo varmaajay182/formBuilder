@@ -1,16 +1,17 @@
 var label;
-var currentPlaceholderInput;
+// var currentPlaceholderInput;
 var currentIdName;
 
 function selectFieldSetting() {
+    // console.log('selectFieldSetting')
     var outerBox = createOuterBox();
 
     var labelInnerBox = createInnerBox();
-    appendLabelName(labelInnerBox);
+    appendSelectTagLabelName(labelInnerBox);
     outerBox.append(labelInnerBox);
 
     var selectIdInnerBox = createInnerBox();
-    appendIdName(selectIdInnerBox)
+    appendSelectFeildIdName(selectIdInnerBox)
     outerBox.append(selectIdInnerBox)
 
     var optionInnerBox = createInnerBox();
@@ -37,31 +38,32 @@ function createInnerBox() {
     });
 }
 
-function appendLabelName(innerBox) {
+function appendSelectTagLabelName(innerBox) {
     var LabelName = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px'
     }).html('<b>Label:</b>');
 
-    var labelInput = $('<input>').addClass('form-control').attr('placeholder', 'Change select tag the label')
+    var labelInput = $('<input>').addClass('form-control').attr('placeholder', 'Change select tag the label').val(label.text())
     labelInput.on('input', function () {
         label.html("<b>" + $(this).val() + "</b>");
     });
-    return innerBox.append(LabelName).append(labelInput);
+   innerBox.append(LabelName).append(labelInput);
 }
 
 
-function appendIdName(innerBox) {
+function appendSelectFeildIdName(innerBox) {
     var IdNameLabel = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px'
     }).html('<b>Id Name:</b>');
 
-    var IdNameInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the id')
+    var IdNameInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the id').val(currentIdName.attr('id'));
 
     IdNameInput.on('input', function () {
         var newIdName = $(this).val();
-        updateIdName(currentIdName, newIdName)
+        currentIdName.attr('id', newIdName)
+        // updateSelectFeildIdName(currentIdName, newIdName)
     });
 
     return innerBox.append(IdNameLabel).append(IdNameInput);
@@ -73,12 +75,12 @@ function appendOption() {
 }
 
 
-function updateIdName(currentIdName, newIdName) {
+function updateSelectFeildIdName(currentIdName, newIdName) {
     currentIdName.attr('id', newIdName)
 }
 
 $('#form-content').on('click', '.custom-container', function () {
-    
     label = $(this).find('label');
     currentIdName = $(this).find('select');
+    selectFieldSetting();
 });

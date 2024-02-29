@@ -18,7 +18,7 @@ function fileUploadSetting(){
     outerBox.append(fileInnerBox);
 
     var nameAttrInnebox = createInnerBox();
-    appendNameAttribute(nameAttrInnebox);
+    appendFileNameAttribute(nameAttrInnebox);
     outerBox.append(nameAttrInnebox);
 
     var fileIdInnerbox = createInnerBox();
@@ -61,7 +61,7 @@ function appendLabelNameForFile(fileInnerBox){
     fileInnerBox.append(LabelName).append(labelInput);
 }
 
-function appendNameAttribute(innerBox) {
+function appendFileNameAttribute(innerBox) {
     var fileNameAttributeLabel = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px',
