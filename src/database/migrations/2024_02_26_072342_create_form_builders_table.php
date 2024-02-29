@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('key');
             $table->string('url');
             $table->string('formId');
+            $table->string('short_code');
             $table->longText('elements'); 
             $table->timestamps();
         });
