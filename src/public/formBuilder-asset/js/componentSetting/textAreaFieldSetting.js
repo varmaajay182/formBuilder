@@ -90,8 +90,9 @@ function updateIdName(currentIdName,newIdName){
     currentIdName.attr('id',newIdName)
 }
 
-$('#form-content').on('click', '.form-element', function () {
+$('#form-content').on('click', '.textAreaElement', function () {
     label = $(this).find('label');
+    // console.log(label,'textarea')
     currentPlaceholderInput = $(this).find('textarea');
     currentIdName= $(this).find('textarea');
 });

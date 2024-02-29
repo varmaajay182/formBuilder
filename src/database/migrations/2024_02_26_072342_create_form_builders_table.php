@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('formName');
             $table->string('key');
+            $table->string('url');
+            $table->string('formId');
             $table->longText('elements'); 
             $table->timestamps();
         });

@@ -11,31 +11,41 @@ $(document).ready(function () {
         $('#form-content').sortable()
         $('#form-content').droppable({
             drop: function (event, ui) {
-                var OuterDiv = $("<div>").addClass("d-flex").css({
-                    "background-color": "#f0f0f0c8",
-                    "marginTop": "10px",
-                    "marginBottom": "10px",
-                    "width": "100%"
-                });
+              
+                 
+                var button = $("<button>")
+                .attr({
+                    type: "button",
+                    class: "btn btn-link cancel",
+                }).css({
+                    "display": "none"
+                })
+                .append($("<i>").addClass("fa-regular fa-circle-xmark").css({
+                    "fontSize": "130%",
+                }));
 
-
-                // console.log(ui.helper.hasClass("inputTag"));
+               
                 if (ui.helper.hasClass("inputTag")) {
-                    var element = createInputField()
+                    var element = createInputField(button)
                 } else if (ui.helper.hasClass("textArea")) {
-                    var element = createTextArea()
+                    var element = createTextArea(button)
                 } else if (ui.helper.hasClass("selectfield")) {
-                    var element = createSelectField()
+                    var element = createSelectField(button)
                 } else if (ui.helper.hasClass("radiofield")) {
-                    var element = createRadio(OuterDiv)
+                    var element = createRadio(button)
                 } else if (ui.helper.hasClass("chackBox")) {
-                    var element = createCheckbox(OuterDiv)
+                    var element = createCheckbox(button)
                 } else if (ui.helper.hasClass("fileUpload")) {
-                    var element = createFileUpload()
+                    var element = createFileUpload(button)
                 } else if (ui.helper.hasClass("button")) {
-                    console.log('hello')
-                    var element = createButton();
+                    // console.log('hello')
+                    var element = createButton(button);
                 }
+                
+                // button.on('click',function(){
+
+                //     deleteElement(button)
+                // })
 
             }
         });

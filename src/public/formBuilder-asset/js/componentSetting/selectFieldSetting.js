@@ -43,7 +43,7 @@ function appendLabelName(innerBox) {
         'marginBottom': '5px'
     }).html('<b>Label:</b>');
 
-    var labelInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the label')
+    var labelInput = $('<input>').addClass('form-control').attr('placeholder', 'Change select tag the label')
     labelInput.on('input', function () {
         label.html("<b>" + $(this).val() + "</b>");
     });
@@ -67,8 +67,8 @@ function appendIdName(innerBox) {
     return innerBox.append(IdNameLabel).append(IdNameInput);
 }
 
-function appendOption(){
-    
+function appendOption() {
+
     // alert('hello')
 }
 
@@ -77,7 +77,8 @@ function updateIdName(currentIdName, newIdName) {
     currentIdName.attr('id', newIdName)
 }
 
-$('#form-content').on('click', '.radiogrouplabel', function () {
+$('#form-content').on('click', '.custom-container', function () {
+    
     label = $(this).find('label');
     currentIdName = $(this).find('select');
 });

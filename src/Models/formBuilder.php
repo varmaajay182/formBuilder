@@ -11,6 +11,8 @@ class formBuilder extends Model
     protected $fillable = [
         'formName',
         'key',
+        'formId',
+        'url',
         'elements',
     ];
 }

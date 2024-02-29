@@ -42,7 +42,7 @@ function createOuterBox() {
 
 function createInnerBox() {
     return $('<div>').css({
-        
+
         "width": "100%",
         "height": "12%"
     });
@@ -68,10 +68,11 @@ function appendTypeSetting(innerBox) {
     var option1 = $("<option>").text("text");
     var option2 = $("<option>").text("date");
     var option3 = $("<option>").text("email");
-    var option4 = $("<option>").text("number");
-    var option5 = $("<option>").text("time");
+    var option4 = $("<option>").text("password");
+    var option5 = $("<option>").text("number");
+    var option6 = $("<option>").text("time");
 
-    select.append(option1).append(option2).append(option3).append(option4).append(option5);
+    select.append(option1).append(option2).append(option3).append(option4).append(option5).append(option6);
 
     // Append the label and dropdown to the inner box
     var typeLabel = $("<label>").css({
@@ -86,7 +87,7 @@ function appendTagNameSetting(innerBox) {
     var tagNameLabel = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px'
-    }).html('<b>Label:</b>');
+    }).html('<b>Input Label:</b>');
 
     var tagNameInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the Tag Name')
     tagNameInput.on('input', function () {
@@ -106,57 +107,57 @@ function appendNameAttribute(innerBox) {
     var tagNameAttributeInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the nameAttribute')
     tagNameAttributeInput.on('input', function () {
         var nameAttribute = $(this).val();
-       
-        updateNameAttribute(currentInputFieldName,nameAttribute)
+
+        updateNameAttribute(currentInputFieldName, nameAttribute)
     });
 
     return innerBox.append(tagNameAttributeLabel).append(tagNameAttributeInput);
 }
 
-function appendIdName(innerBox){
+function appendIdName(innerBox) {
     var IdNameLabel = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px'
     }).html('<b>Id Name:</b>');
 
-    var IdNameInput  = $('<input>').addClass('form-control').attr('placeholder', 'Change the id')
+    var IdNameInput = $('<input>').addClass('form-control').attr('placeholder', 'Change the id')
 
     IdNameInput.on('input', function () {
         var newIdName = $(this).val();
-        updateIdName(currentIdName,newIdName)
+        updateIdName(currentIdName, newIdName)
     });
 
     return innerBox.append(IdNameLabel).append(IdNameInput);
 }
 
-function appendPlaceHolder(innerBox){
+function appendPlaceHolder(innerBox) {
     var placeHolderLabel = $("<label>").css({
         "fontSize": "17px",
         'marginBottom': '5px'
     }).html('<b>Placeholder:</b>');
 
-    var PlaceholderInput  = $('<input>').addClass('form-control').attr('placeholder', 'change placeholder contnet')
+    var PlaceholderInput = $('<input>').addClass('form-control').attr('placeholder', 'change placeholder contnet')
 
     PlaceholderInput.on('input', function () {
         var newPlaceholder = $(this).val();
         // console.log(currentPlacehoder.attr('placeholder'))
-        updatePlaceholder(currentPlacehoder,newPlaceholder)
+        updatePlaceholder(currentPlacehoder, newPlaceholder)
     });
 
     return innerBox.append(placeHolderLabel).append(PlaceholderInput);
 }
 
-function updatePlaceholder(currentPlacehoder,newPlaceholder){
-    currentPlacehoder.attr('placeholder',newPlaceholder)
+function updatePlaceholder(currentPlacehoder, newPlaceholder) {
+    currentPlacehoder.attr('placeholder', newPlaceholder)
 }
 
-function updateIdName(currentIdName,newIdName){
-    currentIdName.attr('id',newIdName)
+function updateIdName(currentIdName, newIdName) {
+    currentIdName.attr('id', newIdName)
 }
 
-function updateNameAttribute(currentNameAttributeValue,newNameAttributeValue){
-    
-    currentNameAttributeValue.attr('name',newNameAttributeValue )
+function updateNameAttribute(currentNameAttributeValue, newNameAttributeValue) {
+
+    currentNameAttributeValue.attr('name', newNameAttributeValue)
 }
 function updateInputFieldType(inputField, selectedType) {
 
@@ -172,6 +173,9 @@ function updateInputFieldType(inputField, selectedType) {
         case "email":
             inputField.attr("placeholder", "Enter email");
             break;
+        case "password":
+            inputField.attr("placeholder", "Enter password");
+            break;
         case "number":
             inputField.attr("placeholder", "Enter number");
             break;
@@ -179,7 +183,7 @@ function updateInputFieldType(inputField, selectedType) {
             inputField.attr("placeholder", "Select time");
             break;
         default:
-            inputField.attr("placeholder",   "");
+            inputField.attr("placeholder", "");
     }
 }
 
@@ -189,6 +193,6 @@ $('#form-content').on('click', '.form-group', function () {
     currentInputField = $(this).find('input');
     label = $(this).find('label');
     currentInputFieldName = $(this).find('input');
-    currentIdName= $(this).find('input');
+    currentIdName = $(this).find('input');
     currentPlacehoder = $(this).find('input');
 });
